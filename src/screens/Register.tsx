@@ -16,6 +16,7 @@ const Register = () => {
   async function handleSubmit(data : SubmitHandler<FormData>) {
     try {
       const schema = Yup.object().shape({
+        username: Yup.string().required(),
         email: Yup.string().email().required(),
         password: Yup.string().min(6).required(),
       });
@@ -35,7 +36,7 @@ const Register = () => {
     <Container>
       <Header>Create your account</Header>
       <Form ref={formRef} onSubmit={handleSubmit}>
-        <Input name="name" label="Username:" />
+        <Input name="username" label="Username:" />
         <Input name="email" keyboardType="email-address" label="Email:" />
         <Input name="password" secureTextEntry={true} label="Password:" />
         <Submit onPress={() => formRef.current?.submitForm()}>

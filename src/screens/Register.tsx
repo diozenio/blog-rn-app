@@ -37,7 +37,7 @@ const Register = () => {
       <Form ref={formRef} onSubmit={handleSubmit}>
         <Input name="name" label="Username:" />
         <Input name="email" keyboardType="email-address" label="Email:" />
-        <Input name="password" label="Password:" keyboardType="visible-password" />
+        <Input name="password" secureTextEntry={true} label="Password:" />
         <Submit onPress={() => formRef.current?.submitForm()}>
         <ButtonText>Create account</ButtonText>
         </Submit>
@@ -51,7 +51,7 @@ export const Container = styled.SafeAreaView`
   background-color: ${props => props.theme.colors.background};
   padding: ${props => props.theme.spacing.p2};
   padding-top: ${props => props.theme.spacing.p3};
-  justify-content: space-evenly;
+  justify-content: center;
 `;
 
 export const Header = styled.Text`
@@ -59,6 +59,7 @@ export const Header = styled.Text`
   font-size: ${props => props.theme.fontSize.h1};
   font-weight: bold;
   text-align: center;
+  margin-bottom: ${props => props.theme.spacing.p3};
 `;
 
 export const ButtonText = styled.Text`

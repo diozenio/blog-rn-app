@@ -20,7 +20,7 @@ const Authentication = () => {
           <Subtitle>Let your friends know what you are doing now.</Subtitle>
         </View>
         <ButtonsContainer>
-          <RegisterButton onPress={() => navigation.navigate("SignIn")}>
+          <RegisterButton onPress={() => navigation.navigate("Register")}>
             <ButtonText>Register</ButtonText>
           </RegisterButton>
           <SignInButton onPress={() => navigation.navigate("SignIn")}>

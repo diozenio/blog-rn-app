@@ -11,7 +11,7 @@ interface FormData {
   email: string;
 }
 
-const SignIn = () => {
+const Register = () => {
   const formRef = useRef<FormHandles>(null);
   async function handleSubmit(data : SubmitHandler<FormData>) {
     try {
@@ -33,12 +33,13 @@ const SignIn = () => {
   }
   return (
     <Container>
-      <Header>Sign in with your account</Header>
+      <Header>Create your account</Header>
       <Form ref={formRef} onSubmit={handleSubmit}>
+        <Input name="name" label="Username:" />
         <Input name="email" keyboardType="email-address" label="Email:" />
         <Input name="password" label="Password:" keyboardType="visible-password" />
         <Submit onPress={() => formRef.current?.submitForm()}>
-        <ButtonText>Sign In</ButtonText>
+        <ButtonText>Create account</ButtonText>
         </Submit>
       </Form>
     </Container>
@@ -77,5 +78,4 @@ export const Submit = styled.TouchableOpacity`
   border-radius: ${props => props.theme.borderRadius};
 `;
 
-
-export default SignIn;
+export default Register;

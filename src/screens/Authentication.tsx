@@ -3,6 +3,8 @@ import { View } from "react-native";
 import styled from "styled-components/native";
 import { useNavigation } from "@react-navigation/native";
 
+// NEW COMENTARY
+
 const Authentication = () => {
   const navigation = useNavigation();
   return (

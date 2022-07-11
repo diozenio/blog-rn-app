@@ -34,8 +34,7 @@ const Authentication = () => {
 
 export const Container = styled.View`
   flex: 1;
-  background-color: #f7f8ff;
-  padding: 5px;
+  background-color: ${props => props.theme.colors.background};
 `;
 
 export const Imagem = styled.Image`
@@ -45,11 +44,8 @@ export const Imagem = styled.Image`
 
 export const ImageContainer = styled.View`
   flex: 1;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 40px;
-  border-bottom-left-radius: 40px;
-  background-color: #cd8efa;
+  border-radius: ${props => props.theme.borderRadius};
+  background-color: ${props => props.theme.colors.primary};
   justify-content: center;
   align-items: center;
 `;
@@ -63,46 +59,45 @@ export const AuthContainer = styled.View`
 export const ButtonsContainer = styled.View`
   width: 80%;
   flex-direction: row;
-  background-color: #ffffff;
-  border-radius: 15px;
+  background-color: ${props => props.theme.colors.primary};
+  border-radius: ${props => props.theme.borderRadius};
 `;
 
 export const RegisterButton = styled.TouchableOpacity`
   flex: 1;
-  padding: 25px;
-  background-color: #e6eaf7;
+  padding: ${props => props.theme.spacing.p2};
+  background-color: ${props => props.theme.colors.primary};
   justify-content: center;
   align-items: center;
-  border-radius: 15px;
+  border-radius: ${props => props.theme.borderRadius};
 `;
 export const SignInButton = styled.TouchableOpacity`
   flex: 1;
-  padding: 25px;
-  background-color: #ffffff;
+  padding: ${props => props.theme.spacing.p2};
+  background-color: ${props => props.theme.colors.secondary};
   justify-content: center;
   align-items: center;
-  border-bottom-right-radius: 20px;
-  border-top-right-radius: 20px;
+  border-radius: ${props => props.theme.borderRadius};
 `;
 
 export const Title = styled.Text`
-  color: #333;
-  font-size: 30px;
+  color: ${props => props.theme.colors.light};
+  font-size: ${props => props.theme.fontSize.h1};
   font-weight: bold;
   text-align: center;
 `;
 
 export const Subtitle = styled.Text`
-  color: #999;
+  color: ${props => props.theme.colors.info};
   margin-top: 20px;
-  font-size: 18px;
+  font-size: ${props => props.theme.fontSize.h2};
   text-align: center;
 `;
 
 export const ButtonText = styled.Text`
-  color: #555;
+  color: ${props => props.theme.colors.info};
   margin-top: 10px;
-  font-size: 18px;
+  font-size: ${props => props.theme.fontSize.h3};
   text-align: center;
   font-weight: bold;
   margin: 0;

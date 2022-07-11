@@ -36,9 +36,11 @@ const SignIn = () => {
       <Header>Blog spots</Header>
       <Title>Sign in with your account</Title>
       <Form ref={formRef} onSubmit={handleSubmit}>
-        <Input name="email" type="email" label={"Digite seu email:"} />
-        <Input name="password" type="password" />
-        <Button title="Sign in" onPress={() => formRef.current?.submitForm()} />
+        <Input name="email" keyboardType="email-address" label="Email:" />
+        <Input name="password" label="Password:" keyboardType="visible-password" />
+        <Submit onPress={() => formRef.current?.submitForm()}>
+        <ButtonText>Sign In</ButtonText>
+        </Submit>
       </Form>
     </Container>
   );
@@ -46,21 +48,37 @@ const SignIn = () => {
 
 export const Container = styled.SafeAreaView`
   flex: 1;
-  background-color: #172026;
-  padding: 20px;
-  padding-top: 40px;
+  background-color: ${props => props.theme.colors.background};
+  padding: ${props => props.theme.spacing.p2};
+  padding-top: ${props => props.theme.spacing.p3};
 `;
 
 export const Header = styled.Text`
-  color: #5fcdd9;
-  font-size: 40px;
+  color: ${props => props.theme.colors.light};
+  font-size: ${props => props.theme.fontSize.x2};
   font-weight: bold;
   text-align: center;
 `;
 
+export const ButtonText = styled.Text`
+  color: ${props => props.theme.colors.light};
+  font-size: ${props => props.theme.fontSize.h3};
+  font-weight: bold;
+  text-align: center;
+`;
+
+export const Submit = styled.TouchableOpacity`
+  width: 100%;
+  padding: ${props => props.theme.spacing.p2};
+  background-color: ${props => props.theme.colors.submit};
+  justify-content: center;
+  align-items: center;
+  border-radius: ${props => props.theme.borderRadius};
+`;
+
 export const Title = styled.Text`
-  color: #5fcdd9;
-  font-size: 20px;
+  color: ${props => props.theme.colors.info};
+  font-size: ${props => props.theme.fontSize.h2};
   font-weight: bold;
   margin-top: 40px;
 `;

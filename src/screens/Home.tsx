@@ -13,12 +13,12 @@ export const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: #333;
+  background-color: ${props => props.theme.colors.background};
 `;
 
 export const Title = styled.Text`
-  font-size: 20px;
-  color: #fff;
+  font-size: ${props => props.theme.fontSize.h1};
+  color: ${props => props.theme.colors.light};
   font-weight: bold;
 `;
 

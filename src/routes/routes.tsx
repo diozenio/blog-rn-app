@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "../screens/Home";
 import SignIn from "../screens/SignIn";
+import Authentication from "../screens/Authentication";
 
 const Stack = createNativeStackNavigator();
 const Routes = () => {
@@ -16,6 +17,7 @@ const Routes = () => {
           statusBarHidden: true,
         }}
       >
+        <Stack.Screen name="Authentication" component={Authentication} />
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>

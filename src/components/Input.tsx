@@ -1,46 +1,73 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef, useEffect, useCallback } from 'react'
+import { TextInput, TextInputProps, Text } from 'react-native'
 import { useField } from '@unform/core'
 
-interface Props {
+interface InputProps extends TextInputProps {
   name: string
-  label?: string
+  label: string
 }
 
-type InputProps = JSX.IntrinsicElements['input'] & Props
+interface InputReference extends TextInput {
+  value: string
+}
 
-export default function Input({ name, label, ...rest }: InputProps) {
-  const inputRef = useRef<HTMLInputElement>(null)
+export default function Input({
+  name,
+  label,
+  onChangeText,
+  ...rest
+}: InputProps) {
+  const inputRef = useRef<InputReference>(null)
 
-  const { fieldName, defaultValue, registerField, error } = useField(name)
+  const { fieldName, registerField, defaultValue = '', error } = useField(name)
 
   useEffect(() => {
-    registerField({
+    if (inputRef.current) inputRef.current.value = defaultValue
+  }, [defaultValue])
+
+  useEffect(() => {
+    registerField<string>({
       name: fieldName,
-      ref: inputRef,
-      getValue: ref => {
-        return ref.current.value
+      ref: inputRef.current,
+      getValue() {
+        if (inputRef.current) return inputRef.current.value
+
+        return ''
       },
-      setValue: (ref, value) => {
-        ref.current.value = value
+      setValue(ref, value) {
+        if (inputRef.current) {
+          inputRef.current.setNativeProps({ text: value })
+          inputRef.current.value = value
+        }
       },
-      clearValue: ref => {
-        ref.current.value = ''
+      clearValue() {
+        if (inputRef.current) {
+          inputRef.current.setNativeProps({ text: '' })
+          inputRef.current.value = ''
+        }
       },
     })
   }, [fieldName, registerField])
 
+  const handleChangeText = useCallback(
+    (value: string) => {
+      if (inputRef.current) inputRef.current.value = value
+
+      if (onChangeText) onChangeText(value)
+    },
+    [onChangeText]
+  )
+
   return (
     <>
-      {label && <label htmlFor={fieldName}>{label}</label>}
+      {label && <Text>{label}</Text>}
 
-      <input
-        id={fieldName}
+      <TextInput
         ref={inputRef}
+        onChangeText={handleChangeText}
         defaultValue={defaultValue}
         {...rest}
       />
-
-      {error && <span>{error}</span>}
     </>
   )
 }

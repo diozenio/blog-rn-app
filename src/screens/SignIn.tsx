@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { Button } from "react-native";
 import { Form } from "@unform/mobile";
 import * as Yup from "yup";
 import styled from "styled-components/native";
@@ -7,8 +6,8 @@ import Input from "../components/Input";
 import { SubmitHandler, FormHandles } from "@unform/core";
 
 interface FormData {
-  name: string;
   email: string;
+  password: string;
 }
 
 const SignIn = () => {

@@ -1,8 +1,8 @@
 import React from "react";
 import { createContext, useCallback, useMemo, useState } from "react";
-import SweetAlert from "react-native-sweet-alert";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import uuid from "react-native-uuid";
+import { Alert } from "react-native";
 
 interface User {
   username: string;
@@ -30,16 +30,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<any>(null);
   const signIn = useCallback(async (data: any) => {
     // const user = await signInAsync();
-    SweetAlert.showAlertWithOptions({
-      title: "OK",
-      subTitle: "Usuário logado com sucesso",
-      confirmButtonTitle: "OK",
-      confirmButtonColor: "#000",
-      otherButtonTitle: "Cancel",
-      otherButtonColor: "#dedede",
-      style: "success",
-      cancellable: true,
-    });
     setUser(data);
   }, []);
 
@@ -48,44 +38,31 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   const signUp = useCallback(async (data: User) => {
-    // SweetAlert.showAlertWithOptions({
-    //   title: "OK",
-    //   subTitle: "Usuário cadastrado com sucesso",
-    //   confirmButtonTitle: "OK",
-    //   confirmButtonColor: "#000",
-    //   otherButtonTitle: "Cancel",
-    //   otherButtonColor: "#dedede",
-    //   style: "success",
-    //   cancellable: true,
-    // });
+    const { username, password, email } = data;
 
-    console.log(data);
-    
-    setUser(data);
-    // try {
-    //   const newUser = {
-    //     id: uuid.v4(),
-    //     username: data.username,
-    //     email: data.email,
-    //     password: data.password,
-    //   };
-    //   const jsonValue = JSON.stringify(newUser);
-    //   await AsyncStorage.setItem("@blog:users", jsonValue);
-    //   SweetAlert.showAlertWithOptions({
-    //     title: "OK",
-    //     subTitle: "Usuário cadastrado com sucesso",
-    //     confirmButtonTitle: "OK",
-    //     confirmButtonColor: "#000",
-    //     otherButtonTitle: "Cancel",
-    //     otherButtonColor: "#dedede",
-    //     style: "success",
-    //     cancellable: true,
-    //   });
-    //   setUser({});
-    // } catch (e) {
-    //   // saving error
-    //   console.log(e);
-    // }
+    try {
+      var response = await AsyncStorage.getItem("@blog:users");
+      const previousUsers = response ? JSON.parse(response) : [];
+      const hasUserEmail = previousUsers.some((element: User) => {
+        return element.email === email;
+      });
+      if (hasUserEmail === true) {
+        Alert.alert("This email has already been used by another user");
+      } else {
+        const newUser = {
+          id: uuid.v4(),
+          username: username,
+          email: email,
+          password: password,
+        };
+        const newData = [previousUsers, newUser];
+        await AsyncStorage.setItem("@blog:users", JSON.stringify(newData));
+        Alert.alert("User successfully registered");
+        setUser(newUser);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   const isSigned = useMemo(() => !!user, [user]);

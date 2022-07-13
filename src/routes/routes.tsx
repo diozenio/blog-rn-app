@@ -1,6 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import CreateMessage from "../screens/CreateMessage";
 import Home from "../screens/Home";
 import SignIn from "../screens/SignIn";
 import Register from "../screens/Register";
@@ -21,6 +22,7 @@ const Routes = () => {
         <Stack.Screen name="Authentication" component={Authentication} />
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="CreateMessage" component={CreateMessage} />
         <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     </NavigationContainer>

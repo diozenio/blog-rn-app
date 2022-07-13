@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { Form } from "@unform/mobile";
 import * as Yup from "yup";
 import styled from "styled-components/native";
-import Input from "../components/Input";
+import Input from "../../components/Input";
 import { SubmitHandler, FormHandles } from "@unform/core";
 
 interface FormData {

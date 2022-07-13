@@ -2,11 +2,9 @@ import React, { useRef } from "react";
 import { Form } from "@unform/mobile";
 import * as Yup from "yup";
 import styled from "styled-components/native";
-import Input from "../components/Input";
+import Input from "../../components/Input";
 import { SubmitHandler, FormHandles } from "@unform/core";
-import uuid from "react-native-uuid";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../../contexts/AuthContext";
 
 interface FormData {
   username: string;
@@ -14,27 +12,9 @@ interface FormData {
   password: string;
 }
 
-const Register = () => {
-  const navigation = useNavigation();
+const SignUp = () => {
+  const { signUp } = useAuth();
   const formRef = useRef<FormHandles>(null);
-  async function createNewUser(data: FormData) {
-    try {
-      const newUser = {
-        id: uuid.v4(),
-        username: data.username,
-        email: data.email,
-        password: data.password,
-      };
-      const jsonValue = JSON.stringify(newUser);
-      await AsyncStorage.setItem("@blog:users", jsonValue);
-      console.log("Created new user");
-      
-      navigation.navigate("Home");
-    } catch (e) {
-      // saving error
-      console.log(e);
-    }
-  }
 
   async function handleSubmit(data: SubmitHandler<FormData>) {
     try {
@@ -47,7 +27,7 @@ const Register = () => {
         abortEarly: false,
       });
       // Validation passed
-      createNewUser(data);
+      signUp(data);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         // Validation failed
@@ -103,4 +83,4 @@ export const Submit = styled.TouchableOpacity`
   border-radius: ${(props) => props.theme.borderRadius};
 `;
 
-export default Register;
+export default SignUp;

@@ -29,8 +29,21 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<any>(null);
   const signIn = useCallback(async (data: any) => {
-    // const user = await signInAsync();
-    setUser(data);
+    const { password, email } = data;
+    try {
+      var response = await AsyncStorage.getItem("@blog:users");
+      const previousUsers: Array<User> = response ? JSON.parse(response) : [];
+      const hasUserRegistered = previousUsers.find(
+        (e) => e.email === email && e.password === password
+      );
+      if (hasUserRegistered !== undefined) {
+        setUser(hasUserRegistered);
+      } else {
+        Alert.alert("Wrong credentials. Please try again");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   const signOut = useCallback(() => {

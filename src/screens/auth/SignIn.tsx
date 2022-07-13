@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import styled from "styled-components/native";
 import Input from "../../components/Input";
 import { SubmitHandler, FormHandles } from "@unform/core";
+import { useAuth } from "../../contexts/AuthContext";
 
 interface FormData {
   email: string;
@@ -11,6 +12,7 @@ interface FormData {
 }
 
 const SignIn = () => {
+  const { signIn } = useAuth();
   const formRef = useRef<FormHandles>(null);
   async function handleSubmit(data : SubmitHandler<FormData>) {
     try {
@@ -22,7 +24,7 @@ const SignIn = () => {
         abortEarly: false,
       });
       // Validation passed
-      console.log(data);
+      signIn(data);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         // Validation failed

@@ -1,11 +1,13 @@
 import { ThemeProvider } from "styled-components";
-import Routes from "./src/routes/routes";
+import { AuthProvider } from "./src/contexts/AuthContext";
 import theme from "./src/theme/theme";
 
 export default function App() {
   return (
+    <AuthProvider>
     <ThemeProvider theme={theme}>
       <Routes />
     </ThemeProvider>
+    </AuthProvider>
   );
 }

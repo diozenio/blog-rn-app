@@ -1,7 +1,9 @@
 import { ThemeProvider } from "styled-components";
 import { StatusBar } from "react-native";
+import Routes from "./src/routes";
 import { AuthProvider } from "./src/contexts/AuthContext";
 import theme from "./src/theme/theme";
+import { NavigationContainer } from "@react-navigation/native";
 
 export default function App() {
   return (
@@ -11,9 +13,11 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-    <ThemeProvider theme={theme}>
-      <Routes />
-    </ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <NavigationContainer>
+          <Routes />
+        </NavigationContainer>
+      </ThemeProvider>
     </AuthProvider>
   );
 }

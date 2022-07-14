@@ -1,5 +1,6 @@
-import {} from 'styled-components';
-import { ThemeType } from './theme'; // Import type from above file
+// styled.d.ts
+import {Theme} from 'react-native-paper/lib/typescript/types';
+import 'styled-components';
 declare module 'styled-components' {
-  export interface DefaultTheme extends ThemeType {} // extends the global DefaultTheme with our ThemeType.
+  export interface DefaultTheme extends Theme {}
 }

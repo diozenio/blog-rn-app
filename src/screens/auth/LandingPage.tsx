@@ -3,7 +3,7 @@ import { View } from "react-native";
 import styled from "styled-components/native";
 import { useNavigation } from "@react-navigation/native";
 
-const Authentication = () => {
+const LandingPage = () => {
   const navigation = useNavigation();
   return (
     <Container>
@@ -20,7 +20,7 @@ const Authentication = () => {
           <Subtitle>Let your friends know what you are doing now.</Subtitle>
         </View>
         <ButtonsContainer>
-          <RegisterButton onPress={() => navigation.navigate("Register")}>
+          <RegisterButton onPress={() => navigation.navigate("SignUp")}>
             <ButtonText>Register</ButtonText>
           </RegisterButton>
           <SignInButton onPress={() => navigation.navigate("SignIn")}>
@@ -103,4 +103,4 @@ export const ButtonText = styled.Text`
   margin: 0;
 `;
 
-export default Authentication;
+export default LandingPage;

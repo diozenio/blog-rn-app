@@ -1,17 +1,18 @@
 import React, { useRef } from "react";
-import { Button } from "react-native";
 import { Form } from "@unform/mobile";
 import * as Yup from "yup";
 import styled from "styled-components/native";
-import Input from "../components/Input";
+import Input from "../../components/Input";
 import { SubmitHandler, FormHandles } from "@unform/core";
+import { useAuth } from "../../contexts/AuthContext";
 
 interface FormData {
-  name: string;
   email: string;
+  password: string;
 }
 
 const SignIn = () => {
+  const { signIn } = useAuth();
   const formRef = useRef<FormHandles>(null);
   async function handleSubmit(data : SubmitHandler<FormData>) {
     try {
@@ -23,7 +24,7 @@ const SignIn = () => {
         abortEarly: false,
       });
       // Validation passed
-      console.log(data);
+      signIn(data);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         // Validation failed

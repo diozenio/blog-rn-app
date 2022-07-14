@@ -1,26 +1,36 @@
-import React from "react";
-import styled from "styled-components/native";
+import { View, Text, Button } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
 
 const Home = () => {
+  const navigation = useNavigation();
+  const [messages, setMessages] = useState<FormData>([]);
+  async function handleFetchCards() {
+    try {
+      var response = await AsyncStorage.getItem("@blog:messages");
+      const data = response ? JSON.parse(response) : {};
+      setMessages(data);
+      console.log(messages);
+      
+    } catch (e) {
+      console.log("Erro no fetch");
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    handleFetchCards();
+  }, []);
   return (
-    <Container>
-      <Title>Home screen</Title>
-    </Container>
+    <View>
+      <Text>Home</Text>
+      <Button
+        title="Tweet"
+        onPress={() => navigation.navigate("CreateMessage")}
+      />
+    </View>
   );
 };
-
-export const Container = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  background-color: ${props => props.theme.colors.background};
-`;
-
-export const Title = styled.Text`
-  font-size: ${props => props.theme.fontSize.h1};
-  color: ${props => props.theme.colors.light};
-  font-weight: bold;
-`;
-
 
 export default Home;

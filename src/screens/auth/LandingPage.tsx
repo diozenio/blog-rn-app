@@ -3,7 +3,7 @@ import { View } from "react-native";
 import styled from "styled-components/native";
 import { useNavigation } from "@react-navigation/native";
 
-const Authentication = () => {
+const LandingPage = () => {
   const navigation = useNavigation();
   return (
     <Container>
@@ -103,4 +103,4 @@ export const ButtonText = styled.Text`
   margin: 0;
 `;
 
-export default Authentication;
+export default LandingPage;

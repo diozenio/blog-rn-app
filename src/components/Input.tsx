@@ -1,7 +1,8 @@
 import React, { useRef, useEffect, useCallback } from "react";
-import { TextInput, TextInputProps, Text } from "react-native";
+import { TextInputProps } from "react-native";
 import { useField } from "@unform/core";
 import styled from "styled-components/native";
+import { TextInput as T } from "react-native-paper";
 
 interface InputProps extends TextInputProps {
   name: string;
@@ -12,12 +13,10 @@ interface InputReference extends TextInput {
   value: string;
 }
 
-export default function Input({
-  name,
-  label,
-  onChangeText,
-  ...rest
-}: InputProps) {
+export default function Input(
+  { name, label, onChangeText, ...rest }: InputProps,
+  props: any
+) {
   const inputRef = useRef<InputReference>(null);
 
   const { fieldName, registerField, defaultValue = "", error } = useField(name);
@@ -61,9 +60,8 @@ export default function Input({
 
   return (
     <>
-      {label && <LabelText>{label}</LabelText>}
-
       <StyledInput
+        label={label}
         ref={inputRef}
         onChangeText={handleChangeText}
         defaultValue={defaultValue}
@@ -73,19 +71,9 @@ export default function Input({
   );
 }
 
-export const StyledInput = styled.TextInput`
-  width: 100%;
+export const StyledInput = styled(T)`
   margin-bottom: 15px;
-  padding: ${(props) => props.theme.spacing.p1};
-  color: ${(props) => props.theme.colors.info};
-  font-size: ${(props) => props.theme.fontSize.h3};
-  background-color: ${(props) => props.theme.colors.primary};
-  border-radius: ${(props) => props.theme.borderRadius};
-`;
-
-export const LabelText = styled.Text`
-  color: ${(props) => props.theme.colors.info};
-  font-size: ${(props) => props.theme.fontSize.h3};
-  font-weight: bold;
-  margin-vertical: 15px;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: ${(props) => props.theme.roundness}px;
 `;

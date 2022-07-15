@@ -6,6 +6,7 @@ import uuid from "react-native-uuid";
 import { SubmitHandler, FormHandles } from "@unform/core";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import { Button, Text } from "react-native-paper";
 
 interface FormData {
   content: string;
@@ -36,9 +37,12 @@ const CreateMessage = () => {
       <FormContainer>
         <Form ref={formRef} onSubmit={handleSubmit}>
           <Input name="content" label={"Type your message here"} />
-          <Submit onPress={() => formRef.current?.submitForm()}>
-            <ButtonText>Send it</ButtonText>
-          </Submit>
+          <Button
+            mode="contained"
+            onPress={() => formRef.current?.submitForm()}
+          >
+            <ButtonText>Sign In</ButtonText>
+          </Button>
         </Form>
       </FormContainer>
     </Container>
@@ -48,36 +52,34 @@ const CreateMessage = () => {
 export const Container = styled.View`
   flex: 1;
   align-items: center;
-  padding: ${(props) => props.theme.spacing.p3};
-  background-color: ${(props) => props.theme.colors.background};
+  padding: 40px;
 `;
 
 export const FormContainer = styled.View`
   width: 100%;
-  margin-vertical: ${(props) => props.theme.spacing.p3};
+  margin-vertical: 40px;
 `;
 
-export const Title = styled.Text`
-  font-size: ${(props) => props.theme.fontSize.h1};
-  color: ${(props) => props.theme.colors.light};
-  font-weight: bold;
+export const Title = styled(Text)`
+  font-size: 22px;
+  color: ${(props) => props.theme.colors.text};
 `;
 
-export const ButtonText = styled.Text`
-  color: ${(props) => props.theme.colors.light};
-  font-size: ${(props) => props.theme.fontSize.h3};
+export const ButtonText = styled(Text)`
+  color: ${(props) => props.theme.colors.text};
+  font-size: 16px;
   font-weight: bold;
   text-align: center;
 `;
 
 export const Submit = styled.TouchableOpacity`
   width: 100%;
-  padding: ${(props) => props.theme.spacing.p2};
-  background-color: ${(props) => props.theme.colors.submit};
+  padding: 30px;
+  background-color: ${(props) => props.theme.colors.primary};
   justify-content: center;
   align-items: center;
   margin-top: 15px;
-  border-radius: ${(props) => props.theme.borderRadius};
+  border-radius: ${(props) => props.theme.roundness}px;
 `;
 
 export default CreateMessage;

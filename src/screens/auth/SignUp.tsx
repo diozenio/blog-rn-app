@@ -12,7 +12,7 @@ interface FormData {
   password: string;
 }
 
-const SignUp = () => {
+const SignUp = (props : any) => {
   const { signUp } = useAuth();
   const formRef = useRef<FormHandles>(null);
 
@@ -53,34 +53,32 @@ const SignUp = () => {
 export const Container = styled.SafeAreaView`
   flex: 1;
   background-color: ${(props) => props.theme.colors.background};
-  padding: ${(props) => props.theme.spacing.p2};
-  padding-top: ${(props) => props.theme.spacing.p3};
+  padding: 30px;
+  padding-top: 40px;
   justify-content: center;
 `;
 
 export const Header = styled.Text`
-  color: ${(props) => props.theme.colors.light};
-  font-size: ${(props) => props.theme.fontSize.h1};
-  font-weight: bold;
+  color: ${(props) => props.theme.colors.primary};
+  font-size: 22px;
   text-align: center;
-  margin-bottom: ${(props) => props.theme.spacing.p3};
+  margin-bottom: 40px;
 `;
 
 export const ButtonText = styled.Text`
-  color: ${(props) => props.theme.colors.light};
-  font-size: ${(props) => props.theme.fontSize.h3};
-  font-weight: bold;
+  color: ${(props) => props.theme.colors.text};
+  font-size: 18px;
   text-align: center;
 `;
 
 export const Submit = styled.TouchableOpacity`
   width: 100%;
-  padding: ${(props) => props.theme.spacing.p2};
-  background-color: ${(props) => props.theme.colors.submit};
+  padding: 30px;
+  background-color: ${(props) => props.theme.colors.primary};
   justify-content: center;
   align-items: center;
   margin-top: 15px;
-  border-radius: ${(props) => props.theme.borderRadius};
+  border-radius: ${(props) => props.theme.roundness}px;
 `;
 
 export default SignUp;

@@ -2,8 +2,10 @@ import React from "react";
 import { View } from "react-native";
 import styled from "styled-components/native";
 import { useNavigation } from "@react-navigation/native";
+import { withTheme } from "react-native-paper";
+import { Text } from "react-native-paper";
 
-const LandingPage = () => {
+const LandingPage = (props: any) => {
   const navigation = useNavigation();
   return (
     <Container>
@@ -34,7 +36,6 @@ const LandingPage = () => {
 
 export const Container = styled.View`
   flex: 1;
-  background-color: ${props => props.theme.colors.background};
 `;
 
 export const Imagem = styled.Image`
@@ -43,9 +44,9 @@ export const Imagem = styled.Image`
 `;
 
 export const ImageContainer = styled.View`
+  background-color: ${(props) => props.theme.colors.accent};
+  border-radius: ${(props) => props.theme.roundness}px;
   flex: 1;
-  border-radius: ${props => props.theme.borderRadius};
-  background-color: ${props => props.theme.colors.primary};
   justify-content: center;
   align-items: center;
 `;
@@ -57,50 +58,49 @@ export const AuthContainer = styled.View`
 `;
 
 export const ButtonsContainer = styled.View`
+  border-radius: ${(props) => props.theme.roundness}px;
+  background-color: ${(props) => props.theme.colors.primary};
   width: 80%;
   flex-direction: row;
-  background-color: ${props => props.theme.colors.primary};
-  border-radius: ${props => props.theme.borderRadius};
 `;
 
 export const RegisterButton = styled.TouchableOpacity`
+  padding: 30px;
   flex: 1;
-  padding: ${props => props.theme.spacing.p2};
-  background-color: ${props => props.theme.colors.primary};
+  border-radius: ${(props) => props.theme.roundness}px;
   justify-content: center;
+  background-color: ${(props) => props.theme.colors.primary};
   align-items: center;
-  border-radius: ${props => props.theme.borderRadius};
 `;
 export const SignInButton = styled.TouchableOpacity`
+  border-radius: ${(props) => props.theme.roundness}px;
+  background-color: ${(props) => props.theme.colors.onSurface};
+  padding: 30px;
   flex: 1;
-  padding: ${props => props.theme.spacing.p2};
-  background-color: ${props => props.theme.colors.secondary};
   justify-content: center;
   align-items: center;
-  border-radius: ${props => props.theme.borderRadius};
 `;
 
-export const Title = styled.Text`
-  color: ${props => props.theme.colors.light};
-  font-size: ${props => props.theme.fontSize.h1};
-  font-weight: bold;
+export const Title = styled(Text)`
+  color: ${(props) => props.theme.colors.text};
+  font-weight: 100;
+  font-size: 21px;
   text-align: center;
 `;
 
-export const Subtitle = styled.Text`
-  color: ${props => props.theme.colors.info};
+export const Subtitle = styled(Text)`
+  font-size: 18px;
+  color: ${(props) => props.theme.colors.primary};
   margin-top: 20px;
-  font-size: ${props => props.theme.fontSize.h2};
   text-align: center;
 `;
 
-export const ButtonText = styled.Text`
-  color: ${props => props.theme.colors.info};
+export const ButtonText = styled(Text)`
+  font-size: 18px;
+  color: ${(props) => props.theme.colors.text};
   margin-top: 10px;
-  font-size: ${props => props.theme.fontSize.h3};
   text-align: center;
-  font-weight: bold;
   margin: 0;
 `;
 
-export default LandingPage;
+export default withTheme(LandingPage);

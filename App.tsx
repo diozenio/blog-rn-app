@@ -35,7 +35,7 @@ export default function App() {
           backgroundColor="transparent"
           translucent
         />
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={combinedTheme}>
           <PaperProvider
             settings={{ icon: (props) => <FeatherIcon {...props} /> }}
             theme={combinedTheme}

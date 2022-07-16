@@ -2,7 +2,6 @@ import React from "react";
 import { View } from "react-native";
 import styled from "styled-components/native";
 import { useNavigation } from "@react-navigation/native";
-import { withTheme } from "react-native-paper";
 import { Text } from "react-native-paper";
 
 const LandingPage = (props: any) => {
@@ -103,4 +102,4 @@ export const ButtonText = styled(Text)`
   margin: 0;
 `;
 
-export default withTheme(LandingPage);
+export default LandingPage;

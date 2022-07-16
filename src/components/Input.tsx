@@ -1,7 +1,8 @@
 import React, { useEffect, useImperativeHandle, useRef } from "react";
-import { TextInput as T, withTheme } from "react-native-paper";
+import { TextInput as T } from "react-native-paper";
 import { useField } from "@unform/core";
 import { TextInputProps as TP } from "react-native-paper/lib/typescript/components/TextInput/TextInput";
+import styled from "styled-components/native";
 
 export interface TextInputProps extends Omit<TP, "theme"> {
   name: string;
@@ -40,9 +41,8 @@ const Input = React.forwardRef<InputRef, TextInputProps>(
       });
     }, [fieldName, registerField]);
     return (
-      <T
+      <StyledInput
         ref={inputElementRef}
-        style={{ marginBottom: 15, borderRadius: rest.theme.roundness }}
         underlineColor={"transparent"}
         defaultValue={defaultValue}
         onChangeText={(value) => {
@@ -55,4 +55,9 @@ const Input = React.forwardRef<InputRef, TextInputProps>(
   }
 );
 
-export default withTheme(Input);
+export const StyledInput = styled(T)`
+  margin-bottom: 15px;
+  border-radius: ${(props) => props.theme.roundness}px;
+`;
+
+export default Input;

@@ -1,16 +1,24 @@
 import React from "react";
-import { Button, withTheme } from "react-native-paper";
+import styled from 'styled-components/native';
+import { Button as B } from "react-native-paper";
 
 const ButtonForm: React.FC = ({ children, ...rest }) => {
   return (
     <Button
       mode="outlined"
       {...rest}
-      style={{ backgroundColor: "#0097f7", paddingVertical: 5, marginTop: 15}}
     >
       {children}
     </Button>
   );
 };
 
-export default withTheme(ButtonForm);
+
+export const Button = styled(B)`
+  background-color: ${(props) => props.theme.colors.surface};
+  padding-vertical: 5px;
+  margin-top: 15px;
+`;
+
+
+export default ButtonForm;

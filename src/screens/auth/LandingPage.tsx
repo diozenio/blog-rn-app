@@ -47,6 +47,7 @@ const LandingPage: React.FC<INavProps> = ({ navigation }) => {
 export const Container = styled.View`
   flex: 1;
   padding: 10px;
+  padding-top: 0;
 `;
 
 export const Imagem = styled.Image`

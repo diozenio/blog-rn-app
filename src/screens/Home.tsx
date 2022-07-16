@@ -42,9 +42,13 @@ const Home = (props: any) => {
       <Container>
         <Headline>Home page</Headline>
         <Title style={{ marginTop: 10 }}>Recent posts:</Title>
-        {posts.map((item: Post) => {
+        {posts ? (
+          posts?.map((item: PostData) => {
           return renderItem(item);
-        })}
+          })
+        ) : (
+          <Title>No posts published yet</Title>
+        )}
       </Container>
       <IconButton>
         <IB

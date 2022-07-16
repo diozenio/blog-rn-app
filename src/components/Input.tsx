@@ -42,7 +42,6 @@ const Input = React.forwardRef<InputRef, TextInputProps>(
     return (
       <T
         ref={inputElementRef}
-        activeUnderlineColor={"transparent"}
         style={{ marginBottom: 15, borderRadius: rest.theme.roundness }}
         underlineColor={"transparent"}
         defaultValue={defaultValue}

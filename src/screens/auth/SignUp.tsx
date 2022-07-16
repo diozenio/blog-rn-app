@@ -39,6 +39,7 @@ const SignUp = (props: any) => {
   }
   return (
     <Container>
+      <MarginContainer />
       <Header>Create your account</Header>
       <Form ref={formRef} onSubmit={handleSubmit}>
         <Input
@@ -58,27 +59,33 @@ const SignUp = (props: any) => {
           label="Password:"
           placeholder="Password"
         />
-        <ButtonForm onPress={() => formRef.current?.submitForm()}>
-          <ButtonText>Create account</ButtonText>
-        </ButtonForm>
+        <ButtonForm
+          buttonName="Register now"
+          onPress={() => formRef.current?.submitForm()}
+        ></ButtonForm>
       </Form>
+      <MarginContainer />
     </Container>
   );
 };
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.View`
   flex: 1;
   background-color: ${(props) => props.theme.colors.background};
   padding: 30px;
   padding-top: 40px;
-  justify-content: center;
+`;
+
+export const MarginContainer = styled.View`
+  flex: 1;
 `;
 
 export const Header = styled(Headline)`
   color: ${(props) => props.theme.colors.text};
-  font-size: 22px;
+  font-size: 35px;
+  line-height: 40px;
   text-align: center;
-  margin-bottom: 40px;
+margin-bottom: 40px;
 `;
 
 export const ButtonText = styled.Text`

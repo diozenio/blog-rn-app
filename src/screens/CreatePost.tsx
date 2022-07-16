@@ -1,5 +1,5 @@
 import { Form } from "@unform/mobile";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef } from "react";
 import styled from "styled-components/native";
 import Input from "../components/Input";
 import uuid from "react-native-uuid";
@@ -7,27 +7,34 @@ import { SubmitHandler, FormHandles } from "@unform/core";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { Button, Text } from "react-native-paper";
+import { useAuth } from "../contexts/AuthContext";
+import {PostsContext} from "../contexts/PostsContext";
 
 interface FormData {
   content: string;
 }
 
-const CreateMessage = () => {
+const CreatePost = () => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
+  const { user } = useAuth();
+  const { fetchPosts } = useContext(PostsContext);
 
   async function handleSubmit(data: SubmitHandler<FormData>) {
     const { content } = data;
     if (content !== "") {
-      const newMessage = {
+      const newPost = {
         id: uuid.v4(),
+        username: user.username,
         content,
       };
-      var response = await AsyncStorage.getItem("@blog:messages");
-      const previousMessages = response ? JSON.parse(response) : [];
-      const newData = [...previousMessages, newMessage];
-      await AsyncStorage.setItem("@blog:messages", JSON.stringify(newData));
+      var response = await AsyncStorage.getItem("@blog:posts");
+      const previousPosts = response ? JSON.parse(response) : [];
+      const newData = [...previousPosts, newPost];
+      await AsyncStorage.setItem("@blog:posts", JSON.stringify(newData));
+      fetchPosts();
       navigation.goBack();
+      
     }
   }
 
@@ -36,12 +43,12 @@ const CreateMessage = () => {
       <Title>Talk to your friends</Title>
       <FormContainer>
         <Form ref={formRef} onSubmit={handleSubmit}>
-          <Input name="content" label={"Type your message here"} />
+          <Input name="content" label={"Type your Post here"} />
           <Button
             mode="contained"
             onPress={() => formRef.current?.submitForm()}
           >
-            <ButtonText>Sign In</ButtonText>
+            <ButtonText>Publish</ButtonText>
           </Button>
         </Form>
       </FormContainer>
@@ -82,4 +89,4 @@ export const Submit = styled.TouchableOpacity`
   border-radius: ${(props) => props.theme.roundness}px;
 `;
 
-export default CreateMessage;
+export default CreatePost;

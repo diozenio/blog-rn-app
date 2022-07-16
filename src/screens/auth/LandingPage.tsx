@@ -1,10 +1,16 @@
 import React from "react";
 import { View } from "react-native";
 import styled from "styled-components/native";
-import { Text } from "react-native-paper";
+import {
+  Button,
+  Caption,
+  Headline,
+  Text,
+  Title as T,
+} from "react-native-paper";
 import { INavProps } from "../../shared/interfaces/NavigationProps";
 
-const LandingPage : React.FC<INavProps> = ({navigation}) => {
+const LandingPage: React.FC<INavProps> = ({ navigation }) => {
   return (
     <Container>
       <ImageContainer>
@@ -20,10 +26,16 @@ const LandingPage : React.FC<INavProps> = ({navigation}) => {
           <Subtitle>Let your friends know what you are doing now.</Subtitle>
         </View>
         <ButtonsContainer>
-          <RegisterButton onPress={() => navigation.navigate("SignUp")}>
+          <RegisterButton
+            uppercase={false}
+            onPress={() => navigation.navigate("SignUp")}
+          >
             <ButtonText>Register</ButtonText>
           </RegisterButton>
-          <SignInButton onPress={() => navigation.navigate("SignIn")}>
+          <SignInButton
+            uppercase={false}
+            onPress={() => navigation.navigate("SignIn")}
+          >
             <ButtonText>Sign In</ButtonText>
           </SignInButton>
         </ButtonsContainer>
@@ -34,6 +46,7 @@ const LandingPage : React.FC<INavProps> = ({navigation}) => {
 
 export const Container = styled.View`
   flex: 1;
+  padding: 10px;
 `;
 
 export const Imagem = styled.Image`
@@ -57,45 +70,46 @@ export const AuthContainer = styled.View`
 
 export const ButtonsContainer = styled.View`
   border-radius: ${(props) => props.theme.roundness}px;
-  background-color: ${(props) => props.theme.colors.primary};
+  background-color: ${(props) => props.theme.colors.accent};
+  border: 2px solid ${(props) => props.theme.colors.primary};
   width: 80%;
   flex-direction: row;
 `;
 
-export const RegisterButton = styled.TouchableOpacity`
-  padding: 30px;
+export const RegisterButton = styled(Button)`
   flex: 1;
   border-radius: ${(props) => props.theme.roundness}px;
   justify-content: center;
   background-color: ${(props) => props.theme.colors.primary};
   align-items: center;
+  padding: 10px;
 `;
-export const SignInButton = styled.TouchableOpacity`
+export const SignInButton = styled(Button)`
   border-radius: ${(props) => props.theme.roundness}px;
-  background-color: ${(props) => props.theme.colors.onSurface};
-  padding: 30px;
+  background-color: ${(props) => props.theme.colors.accent};
   flex: 1;
   justify-content: center;
   align-items: center;
+  padding: 10px;
 `;
 
-export const Title = styled(Text)`
+export const Title = styled(T)`
   color: ${(props) => props.theme.colors.text};
   font-weight: 100;
-  font-size: 21px;
+  font-size: 25px;
   text-align: center;
 `;
 
-export const Subtitle = styled(Text)`
+export const Subtitle = styled(Caption)`
   font-size: 18px;
-  color: ${(props) => props.theme.colors.primary};
-  margin-top: 20px;
+  margin-top: 30px;
+  color: ${(props) => props.theme.colors.onSurface};
   text-align: center;
 `;
 
-export const ButtonText = styled(Text)`
+export const ButtonText = styled(Title)`
   font-size: 18px;
-  color: ${(props) => props.theme.colors.text};
+  color: ${(props) => props.theme.colors.onSurface};
   margin-top: 10px;
   text-align: center;
   margin: 0;

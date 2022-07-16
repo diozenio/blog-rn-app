@@ -1,79 +1,59 @@
-import React, { useRef, useEffect, useCallback } from "react";
-import { TextInputProps } from "react-native";
+import React, { useEffect, useImperativeHandle, useRef } from "react";
+import { TextInput as T, withTheme } from "react-native-paper";
 import { useField } from "@unform/core";
-import styled from "styled-components/native";
-import { TextInput as T } from "react-native-paper";
+import { TextInputProps as TP } from "react-native-paper/lib/typescript/components/TextInput/TextInput";
 
-interface InputProps extends TextInputProps {
+export interface TextInputProps extends Omit<TP, "theme"> {
   name: string;
-  label: string;
 }
-
-interface InputReference extends TextInput {
+interface InputValueReference {
   value: string;
 }
-
-export default function Input(
-  { name, label, onChangeText, ...rest }: InputProps,
-  props: any
-) {
-  const inputRef = useRef<InputReference>(null);
-
-  const { fieldName, registerField, defaultValue = "", error } = useField(name);
-
-  useEffect(() => {
-    if (inputRef.current) inputRef.current.value = defaultValue;
-  }, [defaultValue]);
-
-  useEffect(() => {
-    registerField<string>({
-      name: fieldName,
-      ref: inputRef.current,
-      getValue() {
-        if (inputRef.current) return inputRef.current.value;
-
-        return "";
-      },
-      setValue(ref, value) {
-        if (inputRef.current) {
-          inputRef.current.setNativeProps({ text: value });
-          inputRef.current.value = value;
-        }
-      },
-      clearValue() {
-        if (inputRef.current) {
-          inputRef.current.setNativeProps({ text: "" });
-          inputRef.current.value = "";
-        }
-      },
-    });
-  }, [fieldName, registerField]);
-
-  const handleChangeText = useCallback(
-    (value: string) => {
-      if (inputRef.current) inputRef.current.value = value;
-
-      if (onChangeText) onChangeText(value);
-    },
-    [onChangeText]
-  );
-
-  return (
-    <>
-      <StyledInput
-        label={label}
-        ref={inputRef}
-        onChangeText={handleChangeText}
-        defaultValue={defaultValue}
-        {...rest}
-      />
-    </>
-  );
+interface InputRef {
+  focus(): void;
 }
 
-export const StyledInput = styled(T)`
-  margin-bottom: 15px;
-  padding: 5px;
-  font-size: 16px;
-  border-radius: ${(props) => props.theme.roundness}px;
-`;
+const Input = React.forwardRef<InputRef, TextInputProps>(
+  ({ name, ...rest }, ref) => {
+    const { defaultValue, fieldName, registerField } = useField(name);
+    const inputRef = useRef<InputValueReference>({ value: defaultValue });
+    const inputElementRef = useRef<any>(null);
+    useImperativeHandle(ref, () => ({
+      focus() {
+        inputElementRef.current.focus();
+      },
+    }));
+
+    useEffect(() => {
+      registerField<string>({
+        name: fieldName,
+        ref: inputRef.current,
+        path: "value",
+        setValue(_, value) {
+          inputRef.current.value = value;
+          inputElementRef.current.setNativeProps({ text: value });
+        },
+        clearValue() {
+          inputRef.current.value = "";
+          inputElementRef.current.clear();
+        },
+      });
+    }, [fieldName, registerField]);
+    return (
+      <T
+        ref={inputElementRef}
+        activeUnderlineColor={"transparent"}
+        style={{ marginBottom: 15, borderRadius: rest.theme.roundness }}
+        underlineColor={"transparent"}
+        defaultValue={defaultValue}
+        onChangeText={(value) => {
+          inputRef.current.value = value;
+        }}
+        autoComplete="off"
+        {...rest}
+      />
+    );
+  }
+);
+
+export default withTheme(Input);

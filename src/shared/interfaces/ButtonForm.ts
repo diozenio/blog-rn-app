@@ -1,5 +1,6 @@
-import { PropsWithChildren } from "./PropsWithChildren";
+// import { PropsWithChildren } from "./PropsWithChildren";
 
-export interface IButtonForm extends PropsWithChildren {
+export interface IButtonForm {
+  buttonName: string;
   onPress(): void | undefined;  
 }

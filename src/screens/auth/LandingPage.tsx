@@ -1,11 +1,10 @@
 import React from "react";
 import { View } from "react-native";
 import styled from "styled-components/native";
-import { useNavigation } from "@react-navigation/native";
 import { Text } from "react-native-paper";
+import { INavProps } from "../../shared/interfaces/NavigationProps";
 
-const LandingPage = (props: any) => {
-  const navigation = useNavigation();
+const LandingPage : React.FC<INavProps> = ({navigation}) => {
   return (
     <Container>
       <ImageContainer>

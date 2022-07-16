@@ -5,6 +5,8 @@ import styled from "styled-components/native";
 import Input from "../../components/Input";
 import { SubmitHandler, FormHandles } from "@unform/core";
 import { useAuth } from "../../contexts/AuthContext";
+import { Headline } from "react-native-paper";
+import ButtonForm from "../../components/ButtonForm";
 
 interface FormData {
   username: string;
@@ -12,7 +14,7 @@ interface FormData {
   password: string;
 }
 
-const SignUp = (props : any) => {
+const SignUp = (props: any) => {
   const { signUp } = useAuth();
   const formRef = useRef<FormHandles>(null);
 
@@ -39,12 +41,26 @@ const SignUp = (props : any) => {
     <Container>
       <Header>Create your account</Header>
       <Form ref={formRef} onSubmit={handleSubmit}>
-        <Input name="username" label="Username:" />
-        <Input name="email" keyboardType="email-address" label="Email:" />
-        <Input name="password" secureTextEntry={true} label="Password:" />
-        <Submit onPress={() => formRef.current?.submitForm()}>
+        <Input
+          name="username"
+          label="Username:"
+          placeholder="Enter your username"
+        />
+        <Input
+          name="email"
+          keyboardType="email-address"
+          label="Email:"
+          placeholder="Example@example.com"
+        />
+        <Input
+          name="password"
+          secureTextEntry={true}
+          label="Password:"
+          placeholder="Password"
+        />
+        <ButtonForm onPress={() => formRef.current?.submitForm()}>
           <ButtonText>Create account</ButtonText>
-        </Submit>
+        </ButtonForm>
       </Form>
     </Container>
   );
@@ -58,8 +74,8 @@ export const Container = styled.SafeAreaView`
   justify-content: center;
 `;
 
-export const Header = styled.Text`
-  color: ${(props) => props.theme.colors.primary};
+export const Header = styled(Headline)`
+  color: ${(props) => props.theme.colors.text};
   font-size: 22px;
   text-align: center;
   margin-bottom: 40px;

@@ -6,7 +6,7 @@ import Input from "../../components/Input";
 import ButtonForm from "../../components/ButtonForm";
 import { SubmitHandler, FormHandles } from "@unform/core";
 import { useAuth } from "../../contexts/AuthContext";
-import { Button, Text, Title  } from "react-native-paper";
+import { Headline, Text } from "react-native-paper";
 
 interface FormData {
   email: string;
@@ -38,8 +38,18 @@ const SignIn = (props: any) => {
     <Container>
       <Header>Sign in with your account</Header>
       <Form ref={formRef} onSubmit={handleSubmit}>
-        <Input name="email" keyboardType="email-address" label="Email" placeholder="example@example.com" />
-        <Input secureTextEntry={true} name="password" label="Password:" />
+        <Input
+          name="email"
+          keyboardType="email-address"
+          label="Email"
+          placeholder="Example@example.com"
+        />
+        <Input
+          secureTextEntry={true}
+          name="password"
+          placeholder="Password"
+          label="Password:"
+        />
         <ButtonForm onPress={() => formRef.current?.submitForm()}>
           <ButtonText>Sign In</ButtonText>
         </ButtonForm>
@@ -56,7 +66,7 @@ export const Container = styled.SafeAreaView`
   justify-content: center;
 `;
 
-export const Header = styled(Title )`
+export const Header = styled(Headline)`
   color: ${(props) => props.theme.colors.text};
   font-size: 22px;
   text-align: center;

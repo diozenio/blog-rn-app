@@ -1,8 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
-import React, {
-  useContext,
-  useMemo,
-} from "react";
+import React, { useMemo } from "react";
 import {
   Headline,
   IconButton as IB,
@@ -11,25 +7,16 @@ import {
 } from "react-native-paper";
 import styled from "styled-components/native";
 import PostCard from "../components/PostCard";
-import { PostsContext } from "../contexts/PostsContext";
+import { usePosts } from "../contexts/PostsContext";
+import { PostData } from "../shared/interfaces/PostContext";
+import { INavProps } from "../shared/interfaces/NavigationProps";
 
-interface Post {
-  id: string;
-  username: string;
-  content: string;
-}
+const Home: React.FC<INavProps> = ({navigation, theme}) => {
+  const { posts, fetchPosts } = usePosts();
 
-const Home = (props: any) => {
-  const navigation = useNavigation();
-  const { posts, fetchPosts } = useContext(PostsContext);
-
-  const renderItem = (item: Post) => {
+  const renderItem = (item: PostData) => {
     return (
-      <PostCard
-        key={item.id}
-        username={item.username}
-        content={item.content}
-      />
+      <PostCard key={item.id} username={item.username} content={item.content} />
     );
   };
 
@@ -44,7 +31,7 @@ const Home = (props: any) => {
         <Title style={{ marginTop: 10 }}>Recent posts:</Title>
         {posts ? (
           posts?.map((item: PostData) => {
-          return renderItem(item);
+            return renderItem(item);
           })
         ) : (
           <Title>No posts published yet</Title>
@@ -53,7 +40,7 @@ const Home = (props: any) => {
       <IconButton>
         <IB
           icon="message-square"
-          color={props.theme.colors.text}
+          color={theme.colors.text}
           size={30}
           onPress={() => navigation.navigate("CreatePost")}
         />

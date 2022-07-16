@@ -10,7 +10,7 @@ interface User {
 }
 
 type AuthContextData = {
-  user: any;
+  user: User;
   signIn(data: any): Promise<void>;
   signOut(): void;
   signUp(data: any): Promise<void>;
@@ -30,7 +30,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const signIn = useCallback(async (data: any) => {
     const { password, email } = data;
     try {
-      var response = await AsyncStorage.getItem("@blog:users");
+      const response = await AsyncStorage.getItem("@blog:users");
       const previousUsers: Array<User> = response ? JSON.parse(response) : [];
       const hasUserRegistered = previousUsers.find(
         (e) => e.email === email && e.password === password
@@ -53,7 +53,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const { username, password, email } = data;
 
     try {
-      var response = await AsyncStorage.getItem("@blog:users");
+      const response = await AsyncStorage.getItem("@blog:users");
       const previousUsers = response ? JSON.parse(response) : [];
       const hasUserEmail = previousUsers.some((element: User) => {
         return element.email === email;

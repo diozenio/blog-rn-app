@@ -10,10 +10,10 @@ import {
   withTheme,
 } from "react-native-paper";
 import styled from "styled-components/native";
-import MessageCard from "../components/MessageCard";
+import PostCard from "../components/PostCard";
 import { PostsContext } from "../contexts/PostsContext";
 
-interface Message {
+interface Post {
   id: string;
   username: string;
   content: string;
@@ -23,9 +23,9 @@ const Home = (props: any) => {
   const navigation = useNavigation();
   const { posts, fetchPosts } = useContext(PostsContext);
 
-  const renderItem = (item: Message) => {
+  const renderItem = (item: Post) => {
     return (
-      <MessageCard
+      <PostCard
         key={item.id}
         username={item.username}
         content={item.content}
@@ -42,7 +42,7 @@ const Home = (props: any) => {
       <Container>
         <Headline>Home page</Headline>
         <Title style={{ marginTop: 10 }}>Recent posts:</Title>
-        {posts.map((item: Message) => {
+        {posts.map((item: Post) => {
           return renderItem(item);
         })}
       </Container>
@@ -51,7 +51,7 @@ const Home = (props: any) => {
           icon="message-square"
           color={props.theme.colors.text}
           size={30}
-          onPress={() => navigation.navigate("CreateMessage")}
+          onPress={() => navigation.navigate("CreatePost")}
         />
       </IconButton>
     </SafeArea>

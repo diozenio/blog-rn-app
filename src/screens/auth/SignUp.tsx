@@ -5,6 +5,8 @@ import styled from "styled-components/native";
 import Input from "../../components/Input";
 import { SubmitHandler, FormHandles } from "@unform/core";
 import { useAuth } from "../../contexts/AuthContext";
+import { Headline } from "react-native-paper";
+import ButtonForm from "../../components/ButtonForm";
 
 interface FormData {
   username: string;
@@ -12,7 +14,7 @@ interface FormData {
   password: string;
 }
 
-const SignUp = () => {
+const SignUp = (props: any) => {
   const { signUp } = useAuth();
   const formRef = useRef<FormHandles>(null);
 
@@ -39,12 +41,26 @@ const SignUp = () => {
     <Container>
       <Header>Create your account</Header>
       <Form ref={formRef} onSubmit={handleSubmit}>
-        <Input name="username" label="Username:" />
-        <Input name="email" keyboardType="email-address" label="Email:" />
-        <Input name="password" secureTextEntry={true} label="Password:" />
-        <Submit onPress={() => formRef.current?.submitForm()}>
+        <Input
+          name="username"
+          label="Username:"
+          placeholder="Enter your username"
+        />
+        <Input
+          name="email"
+          keyboardType="email-address"
+          label="Email:"
+          placeholder="Example@example.com"
+        />
+        <Input
+          name="password"
+          secureTextEntry={true}
+          label="Password:"
+          placeholder="Password"
+        />
+        <ButtonForm onPress={() => formRef.current?.submitForm()}>
           <ButtonText>Create account</ButtonText>
-        </Submit>
+        </ButtonForm>
       </Form>
     </Container>
   );
@@ -53,34 +69,32 @@ const SignUp = () => {
 export const Container = styled.SafeAreaView`
   flex: 1;
   background-color: ${(props) => props.theme.colors.background};
-  padding: ${(props) => props.theme.spacing.p2};
-  padding-top: ${(props) => props.theme.spacing.p3};
+  padding: 30px;
+  padding-top: 40px;
   justify-content: center;
 `;
 
-export const Header = styled.Text`
-  color: ${(props) => props.theme.colors.light};
-  font-size: ${(props) => props.theme.fontSize.h1};
-  font-weight: bold;
+export const Header = styled(Headline)`
+  color: ${(props) => props.theme.colors.text};
+  font-size: 22px;
   text-align: center;
-  margin-bottom: ${(props) => props.theme.spacing.p3};
+  margin-bottom: 40px;
 `;
 
 export const ButtonText = styled.Text`
-  color: ${(props) => props.theme.colors.light};
-  font-size: ${(props) => props.theme.fontSize.h3};
-  font-weight: bold;
+  color: ${(props) => props.theme.colors.text};
+  font-size: 18px;
   text-align: center;
 `;
 
 export const Submit = styled.TouchableOpacity`
   width: 100%;
-  padding: ${(props) => props.theme.spacing.p2};
-  background-color: ${(props) => props.theme.colors.submit};
+  padding: 30px;
+  background-color: ${(props) => props.theme.colors.primary};
   justify-content: center;
   align-items: center;
   margin-top: 15px;
-  border-radius: ${(props) => props.theme.borderRadius};
+  border-radius: ${(props) => props.theme.roundness}px;
 `;
 
 export default SignUp;

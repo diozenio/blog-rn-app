@@ -1,14 +1,12 @@
 import React from "react";
 import { Button, withTheme } from "react-native-paper";
 
-// import { Container } from './styles';
-
 const ButtonForm: React.FC = ({ children, ...rest }) => {
   return (
     <Button
-      mode="contained"
+      mode="outlined"
       {...rest}
-      style={{ backgroundColor: "#0097f7", paddingVertical: 5 }}
+      style={{ backgroundColor: "#0097f7", paddingVertical: 5, marginTop: 15}}
     >
       {children}
     </Button>

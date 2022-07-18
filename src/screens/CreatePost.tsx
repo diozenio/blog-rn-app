@@ -11,6 +11,8 @@ import { useAuth } from "../contexts/AuthContext";
 import {PostsContext} from "../contexts/PostsContext";
 
 interface FormData {
+  id: string;
+  username: string;
   content: string;
 }
 
@@ -20,7 +22,8 @@ const CreatePost = () => {
   const { user } = useAuth();
   const { fetchPosts } = useContext(PostsContext);
 
-  async function handleSubmit(data: SubmitHandler<FormData>) {
+
+  const handleSubmit: SubmitHandler<FormData> = async (data) => {
     const { content } = data;
     if (content !== "") {
       const newPost = {
@@ -28,7 +31,7 @@ const CreatePost = () => {
         username: user.username,
         content,
       };
-      var response = await AsyncStorage.getItem("@blog:posts");
+      const response = await AsyncStorage.getItem("@blog:posts");
       const previousPosts = response ? JSON.parse(response) : [];
       const newData = [...previousPosts, newPost];
       await AsyncStorage.setItem("@blog:posts", JSON.stringify(newData));

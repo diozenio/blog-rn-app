@@ -8,7 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { Button, Text } from "react-native-paper";
 import { useAuth } from "../contexts/AuthContext";
-import {PostsContext} from "../contexts/PostsContext";
+import { PostsContext } from "../contexts/PostsContext";
 
 interface FormData {
   id: string;
@@ -21,7 +21,6 @@ const CreatePost = () => {
   const navigation = useNavigation();
   const { user } = useAuth();
   const { fetchPosts } = useContext(PostsContext);
-
 
   const handleSubmit: SubmitHandler<FormData> = async (data) => {
     const { content } = data;
@@ -37,9 +36,8 @@ const CreatePost = () => {
       await AsyncStorage.setItem("@blog:posts", JSON.stringify(newData));
       fetchPosts();
       navigation.goBack();
-      
     }
-  }
+  };
 
   return (
     <Container>
@@ -93,3 +91,4 @@ export const Submit = styled.TouchableOpacity`
 `;
 
 export default CreatePost;
+// export default withPosts(CreatePost);

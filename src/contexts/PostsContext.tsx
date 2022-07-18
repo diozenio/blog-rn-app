@@ -31,3 +31,13 @@ export const usePosts = () => {
 
   return context;
 };
+
+// export const withPosts = (Component: React.FC): React.FC => {
+//   return () => {
+//     return (
+//       <PostsProvider>
+//         <Component />
+//       </PostsProvider>
+//     );
+//   };
+// };

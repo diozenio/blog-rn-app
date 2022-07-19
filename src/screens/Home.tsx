@@ -1,14 +1,12 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
-  Button,
-  Headline,
   IconButton as IB,
   Title,
   withTheme,
 } from "react-native-paper";
 import styled from "styled-components/native";
 import PostCard from "../components/PostCard";
-import { PostsContext, usePosts } from "../contexts/PostsContext";
+import { usePosts } from "../contexts/PostsContext";
 import { PostData } from "../shared/interfaces/PostContext";
 import { INavProps } from "../shared/interfaces/NavigationProps";
 import { useAuth } from "../contexts/AuthContext";
@@ -32,7 +30,7 @@ const Home: React.FC<INavProps> = ({ navigation, theme }) => {
 
   const handleSubmit: SubmitHandler<FormData> = async (data) => {
     const { content } = data;
-    if (content !== "") {
+    if (content !== "" && content !== undefined && content !== null) {
       const newPost = {
         id: uuid.v4(),
         username: user.username,
@@ -48,6 +46,8 @@ const Home: React.FC<INavProps> = ({ navigation, theme }) => {
   };
 
   const renderItem = (item: PostData) => {
+    console.log("renderizou");
+
     return (
       <PostCard key={item.id} username={item.username} content={item.content} />
     );
@@ -73,12 +73,14 @@ const Home: React.FC<INavProps> = ({ navigation, theme }) => {
           </IconContainer>
         </HeaderContainer>
         <PostsContainer>
-          {posts ? (
-            posts?.map((item: PostData) => {
+          {posts && posts.length ? (
+            posts.map((item: PostData) => {
               return renderItem(item);
             })
           ) : (
-            <Title>No posts published yet</Title>
+            <Title style={{ textAlign: "center" }}>
+              No posts published yet
+            </Title>
           )}
         </PostsContainer>
       </Container>
@@ -104,7 +106,6 @@ export const PostsContainer = styled.View`
   flex: 1;
   padding-horizontal: 10px;
   margin-bottom: 100px;
-
 `;
 
 export const HeaderContainer = styled.View`
@@ -149,11 +150,3 @@ export const IconContainer = styled.View`
 `;
 
 export default withTheme(Home);
-
-// {posts ? (
-//   posts?.map((item: PostData) => {
-//     return renderItem(item);
-//   })
-// ) : (
-//   <Title>No posts published yet</Title>
-// )}

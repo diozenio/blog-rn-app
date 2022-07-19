@@ -12,7 +12,7 @@ const theme: Theme = {
     primary: "#2b2b40",
     surface: "#009ef7",
     accent: "#1e1e2d",
-    onSurface: "#fffaaa",
+    onSurface: "#92929f",
     backdrop: "#1b1b29",
     placeholder: "#565674",
   },

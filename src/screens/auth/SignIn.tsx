@@ -6,14 +6,14 @@ import Input from "../../components/Input";
 import ButtonForm from "../../components/ButtonForm";
 import { SubmitHandler, FormHandles } from "@unform/core";
 import { useAuth } from "../../contexts/AuthContext";
-import { Headline, Text } from "react-native-paper";
+import { Caption, Headline, Text, Title } from "react-native-paper";
 
 interface FormData {
   email: string;
   password: string;
 }
 
-const SignIn = (props: any) => {
+const SignIn = () => {
   const { signIn } = useAuth();
   const formRef = useRef<FormHandles>(null);
   async function handleSubmit(data: SubmitHandler<FormData>) {
@@ -36,12 +36,14 @@ const SignIn = (props: any) => {
   }
   return (
     <Container>
-      <Header>Sign in with your account</Header>
+      <MarginContainer />
+      <Welcome>Welcome back</Welcome>
+      <Header>Sign in with your account:</Header>
       <Form ref={formRef} onSubmit={handleSubmit}>
         <Input
           name="email"
           keyboardType="email-address"
-          label="Email"
+          label="Email:"
           placeholder="Example@example.com"
         />
         <Input
@@ -50,27 +52,39 @@ const SignIn = (props: any) => {
           placeholder="Password"
           label="Password:"
         />
-        <ButtonForm onPress={() => formRef.current?.submitForm()}>
-          <ButtonText>Sign In</ButtonText>
-        </ButtonForm>
+        <ButtonForm
+          buttonName={"Sign In"}
+          onPress={() => formRef.current?.submitForm()}
+        ></ButtonForm>
       </Form>
+      <MarginContainer />
     </Container>
   );
 };
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.View`
   flex: 1;
   background-color: ${(props) => props.theme.colors.background};
   padding: 30px;
   padding-top: 40px;
-  justify-content: center;
 `;
 
-export const Header = styled(Headline)`
-  color: ${(props) => props.theme.colors.text};
+export const MarginContainer = styled.View`
+  flex: 1;
+`;
+
+export const Header = styled(Text)`
+  color: ${(props) => props.theme.colors.onSurface};
   font-size: 22px;
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
+`;
+
+export const Welcome = styled(Title)`
+  color: ${(props) => props.theme.colors.text};
+  font-size: 35px;
+  line-height: 40px;
+  text-align: center;
 `;
 
 export const ButtonText = styled(Text)`

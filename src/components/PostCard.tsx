@@ -1,14 +1,31 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { Paragraph, Title, withTheme } from "react-native-paper";
+import { Caption as C, Divider as D, Title } from "react-native-paper";
+import styled from "styled-components/native";
 
-const PostCard = ({username, content} : any) => {
+interface PostCardData {
+  username: string;
+  content: string;
+}
+
+const PostCard = ({ username, content }: PostCardData) => {
   return (
-    <View style={{backgroundColor: '#333', marginBottom: 10}}>
+    <Container>
       <Title>{username}</Title>
-      <Paragraph>{content}</Paragraph>
-    </View>
+      <Caption>{content}</Caption>
+    </Container>
   );
 };
+
+export const Container = styled.View`
+  background-color: ${(props) => props.theme.colors.accent};
+  border-radius: ${(props) => props.theme.roundness}px;
+  margin-bottom: 10px;
+  padding: 10px;
+`;
+
+export const Caption = styled(C)`
+  font-size: 15px;
+`;
 
 export default PostCard;

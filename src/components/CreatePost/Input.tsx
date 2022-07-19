@@ -3,7 +3,6 @@ import { TextInput as T, Title } from "react-native-paper";
 import { useField } from "@unform/core";
 import { TextInputProps as TP } from "react-native-paper/lib/typescript/components/TextInput/TextInput";
 import styled from "styled-components/native";
-import { Alert } from "react-native";
 
 export interface TextInputProps extends Omit<TP, "theme"> {
   name: string;
@@ -26,9 +25,6 @@ const Input = React.forwardRef<InputRef, TextInputProps>(
       },
     }));
 
-    const [activeColor, setactiveColor] = useState("#1b1b29");
-
-
     useEffect(() => {
       registerField<string>({
         name: fieldName,
@@ -45,33 +41,28 @@ const Input = React.forwardRef<InputRef, TextInputProps>(
       });
     }, [fieldName, registerField]);
     return (
-      <>
-        <LabelText>{label}</LabelText>
-        <StyledInput
-          ref={inputElementRef}
-          underlineColor={"transparent"}
-          activeUnderlineColor={"transparent"}
-          defaultValue={defaultValue}
-          onFocus={() => setactiveColor("#1e1e2d")}
-          onBlur={() => setactiveColor("#1b1b29")}
-          style={{ backgroundColor: activeColor }}
-          onChangeText={(value) => {
-            inputRef.current.value = value;
-          }}
-          selectTextOnFocus={true}
-          selectionColor={"white"}
-          autoComplete="off"
-          {...rest}
-        />
-      </>
+      <StyledInput
+        ref={inputElementRef}
+        underlineColor={"transparent"}
+        activeUnderlineColor={"transparent"}
+        defaultValue={defaultValue}
+        onChangeText={(value) => {
+          inputRef.current.value = value;
+        }}
+        selectTextOnFocus={true}
+        selectionColor={"white"}
+        autoComplete="off"
+        {...rest}
+      />
     );
   }
 );
 
 export const StyledInput = styled(T)`
-  width: 100%;
-  margin-bottom: 15px;
+  flex: 1;
+  height: 60px;
   border-radius: ${(props) => props.theme.roundness}px;
+  background-color: ${(props) => props.theme.colors.backdrop};
 `;
 
 export const LabelText = styled(Title)`

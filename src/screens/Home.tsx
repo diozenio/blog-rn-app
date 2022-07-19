@@ -1,9 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  IconButton as IB,
-  Title,
-  withTheme,
-} from "react-native-paper";
+import { IconButton as IB, Title, withTheme } from "react-native-paper";
 import styled from "styled-components/native";
 import PostCard from "../components/PostCard";
 import { usePosts } from "../contexts/PostsContext";
@@ -25,7 +21,7 @@ interface FormData {
 const Home: React.FC<INavProps> = ({ navigation, theme }) => {
   const formRef = useRef<FormHandles>(null);
   const { posts, fetchPosts } = usePosts();
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const [changed, setChanged] = useState(false);
 
   const handleSubmit: SubmitHandler<FormData> = async (data) => {
@@ -46,8 +42,6 @@ const Home: React.FC<INavProps> = ({ navigation, theme }) => {
   };
 
   const renderItem = (item: PostData) => {
-    console.log("renderizou");
-
     return (
       <PostCard key={item.id} username={item.username} content={item.content} />
     );
@@ -68,7 +62,9 @@ const Home: React.FC<INavProps> = ({ navigation, theme }) => {
               icon="log-out"
               iconColor={theme.colors.text}
               size={20}
-              onPress={() => console.log("Pressed")}
+              onPress={() => {
+                signOut();
+              }}
             />
           </IconContainer>
         </HeaderContainer>

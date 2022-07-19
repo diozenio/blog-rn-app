@@ -36,7 +36,6 @@ const Home: React.FC<INavProps> = ({ navigation, theme }) => {
       const previousPosts = response ? JSON.parse(response) : [];
       const newData = [...previousPosts, newPost];
       await AsyncStorage.setItem("@blog:posts", JSON.stringify(newData));
-      // await AsyncStorage.removeItem("@blog:posts");
       setChanged(!changed);
     }
   };
